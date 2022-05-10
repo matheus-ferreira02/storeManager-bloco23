@@ -24,5 +24,11 @@ describe('Testa se a Model retorna ', () => {
 
       expect(response).to.be.an('array');
     });
+
+    it('possuem as propriedades corretas', async () => {
+      const response = await productsModel.getAll();
+
+      expect(response[0]).to.deep.keys('id', 'name', 'quantity');
+    });
   })
 })
