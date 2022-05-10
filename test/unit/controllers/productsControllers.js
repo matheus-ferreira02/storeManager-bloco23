@@ -21,10 +21,12 @@ describe('Testa se a Controller retorna', () => {
       .returns(data);
 
     sinon.stub(productsService, 'getAll').resolves(data);
+    sinon.stub(productsService, 'getProductById').resolves(data);
   });
 
   after(() => {
     productsService.getAll.restore();
+    productsService.getProductById.restore();
   });
 
   describe('todos os produtos', () => {
