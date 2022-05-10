@@ -34,15 +34,15 @@ describe('Testa se a Model retorna ', () => {
 
   describe('apenas um produto', () => {
     it('em um formato de objeto', async () => {
-      const response = await productsModel.getProductById();
+      const response = await productsModel.getProductById(1);
 
-      expect(response).to.be.an('object');
+      expect(response).to.be.an('array');
     });
 
     it('com as propriedades corretas', async () => {
-      const response = await productsModel.getProductById();
+      const response = await productsModel.getProductById(1);
 
-      expect(response).to.deep.keys('id', 'name', 'quantity');
+      expect(response[0]).to.deep.keys('id', 'name', 'quantity');
     });
   });
 });
