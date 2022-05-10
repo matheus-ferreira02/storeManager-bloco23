@@ -14,7 +14,7 @@ const getProductById = async (id) => {
     
   const [response] = await connection.execute(query, [id]);
 
-  return response[0];
+  return response;
 };
 
 module.exports = {
