@@ -6,9 +6,11 @@ const salesModel = require('../../../models/salesModel');
 describe('Testa se a Model retorna ', () => {
   before(() => {
     const execute = [[{
-      id: 1,
-      date: '2021-09-09 00:45:23'
-    }], []];
+      sale_id: 1,
+      date: '2021-09-09T04:54:29.000Z',
+      product_id: 1,
+      quantity: 2
+    },], []];
 
     sinon.stub(connection, 'execute').resolves(execute);
   });
@@ -27,7 +29,7 @@ describe('Testa se a Model retorna ', () => {
     it('com as propriedades corretas', async () => {
       const response = await salesModel.getAll();
 
-      expect(response[0]).to.deep.keys('id', 'date');
+      expect(response[0]).to.deep.keys('sale_id', 'date', 'product_id', 'quantity');
     });
   });
 
@@ -41,7 +43,7 @@ describe('Testa se a Model retorna ', () => {
     it('com as propriedades corretas', async () => {
       const response = await salesModel.getSaleById(1);
 
-      expect(response[0]).to.deep.keys('id', 'date');
+      expect(response[0]).to.deep.keys('sale_id', 'date', 'product_id', 'quantity');
     });
   });
 });
