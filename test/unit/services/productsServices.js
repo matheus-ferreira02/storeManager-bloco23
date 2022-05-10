@@ -19,7 +19,7 @@ describe('Testa se a Service retorna', () => {
   });
 
   describe('todos os produtos', () => {
-    it('Em um formato de array', async () => {
+    it('em um formato de array', async () => {
       const response = await productsService.getAll();
 
       expect(response).to.be.an('array');
@@ -30,5 +30,19 @@ describe('Testa se a Service retorna', () => {
 
       expect(response[0]).to.deep.keys('id', 'name', 'quantity');
     });
-  })
-})
+  });
+
+  describe('apenas um produto', () => {
+    it('em um formato de objeto', async () => {
+      const response = await productsService.getProductById(1);
+
+      expect(response).to.be.an('object');
+    });
+
+    it('com as propriedades corretas', async () => {
+      const response = await productsService.getProductById(1);
+
+      expect(response).to.deep.keys('id', 'name', 'quantity');
+    });
+  });
+});
