@@ -4,7 +4,7 @@ const salesModel = require('../../../models/salesModel');
 const salesService = require('../../../services/salesService');
 
 
-describe('Testa se a Service retorna', () => {
+describe('Testa se a Service da Sales retorna', () => {
   describe('um erro, caso não exista uma venda', () => {
     before(async () => {
       const execute = [];
@@ -67,7 +67,6 @@ describe('Testa se a Service retorna', () => {
   describe('apenas uma venda', () => {
     before(async () => {
       const execute = [{
-        saleId: 1,
         date: '2021-09-09T04:54:29.000Z',
         productId: 1,
         quantity: 2
@@ -91,7 +90,7 @@ describe('Testa se a Service retorna', () => {
     it('com as propriedades corretas', async () => {
       const response = await salesService.getSaleById(1);
 
-      expect(response[0]).to.deep.keys('saleId', 'date', 'productId', 'quantity');
+      expect(response[0]).to.deep.keys('date', 'productId', 'quantity');
     });
   });
 });

@@ -8,6 +8,12 @@ const serializeSales = (data) => ({
   quantity: data.quantity,
 });
 
+const serializeSalesById = (data) => ({
+  date: data.date,
+  productId: data.product_id,
+  quantity: data.quantity,
+});
+
 const getAll = async () => {
   const response = await salesModel.getAll();
 
@@ -21,7 +27,7 @@ const getSaleById = async (id) => {
 
   if (!response.length) throw createError(404, 'Sale not found');
 
-  const data = response.map(serializeSales);
+  const data = response.map(serializeSalesById);
 
   return data;
 };

@@ -20,7 +20,6 @@ const getAll = async () => {
 const getSaleById = async (id) => {
   const query = `
   SELECT
-    sp.sale_id,
     sa.date,
     sp.product_id,
     sp.quantity
