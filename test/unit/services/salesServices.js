@@ -36,8 +36,10 @@ describe('Testa se a Service retorna', () => {
   describe('todos as vendas', () => {
     before(async () => {
       const execute = [{
-        id: 1,
-        date: '2021-09-09 00:45:23'
+        sale_id: 1,
+        date: '2021-09-09T04:54:29.000Z',
+        product_id: 1,
+        quantity: 2
       }];
   
       sinon.stub(salesModel, 'getAll').resolves(execute);
@@ -58,15 +60,17 @@ describe('Testa se a Service retorna', () => {
     it('com as propriedades corretas', async () => {
       const response = await salesService.getAll();
 
-      expect(response[0]).to.deep.keys('id', 'date');
+      expect(response[0]).to.deep.keys('saleId', 'date', 'productId', 'quantity');
     });
   });
 
   describe('apenas uma venda', () => {
     before(async () => {
       const execute = [{
-        id: 1,
-        date: '2021-09-09 00:45:23'
+        saleId: 1,
+        date: '2021-09-09T04:54:29.000Z',
+        productId: 1,
+        quantity: 2
       }];
   
       sinon.stub(salesModel, 'getAll').resolves(execute);
@@ -87,7 +91,7 @@ describe('Testa se a Service retorna', () => {
     it('com as propriedades corretas', async () => {
       const response = await salesService.getSaleById(1);
 
-      expect(response).to.deep.keys('id', 'date');
+      expect(response).to.deep.keys('saleId', 'date', 'productId', 'quantity');
     });
   });
 });

@@ -10,7 +10,7 @@ describe('Testa se a Model retorna ', () => {
       date: '2021-09-09T04:54:29.000Z',
       product_id: 1,
       quantity: 2
-    },], []];
+    }], []];
 
     sinon.stub(connection, 'execute').resolves(execute);
   });
