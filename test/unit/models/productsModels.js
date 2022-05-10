@@ -1,6 +1,7 @@
 const sinon = require('sinon');
 const { expect } = require('chai');
 const connection = require('../../../models/connection');
+const productsModel = require('../../../models/productsModel');
 
 describe('Testa se a Model retorna ', () => {
   before(async () => {
@@ -19,7 +20,7 @@ describe('Testa se a Model retorna ', () => {
 
   describe('todos os produtos', () => {
     it('Em um formato de array', async () => {
-      const response = await MoviesModel.getAll();
+      const response = await productsModel.getAll();
 
       expect(response).to.be.an('array');
     });
