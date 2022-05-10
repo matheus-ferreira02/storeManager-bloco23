@@ -41,7 +41,7 @@ describe('Testa se a Model retorna ', () => {
     it('com as propriedades corretas', async () => {
       const response = await salesModel.getSaleById(1);
 
-      expect(response[0]).to.deep.keys('id', 'name', 'quantity');
+      expect(response[0]).to.deep.keys('id', 'date');
     });
   });
 });
