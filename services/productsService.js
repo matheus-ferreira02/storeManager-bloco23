@@ -1,3 +1,4 @@
+const createError = require('../helpers/createObjError');
 const productsModel = require('../models/productsModel');
 
 const getAll = async () => {
@@ -9,9 +10,7 @@ const getAll = async () => {
 const getProductById = async (id) => {
   const [response] = await productsModel.getProductById(id);
 
-  const err = { status: 404, message: 'Product not found' };
-
-  if (!response) throw err;
+  if (!response) throw createError(404, 'Product not found');
 
   return response;
 };
