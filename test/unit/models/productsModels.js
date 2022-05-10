@@ -19,7 +19,7 @@ describe('Testa se a Model retorna ', () => {
   });
 
   describe('todos os produtos', () => {
-    it('Em um formato de array', async () => {
+    it('em um formato de array', async () => {
       const response = await productsModel.getAll();
 
       expect(response).to.be.an('array');
@@ -33,7 +33,7 @@ describe('Testa se a Model retorna ', () => {
   });
 
   describe('apenas um produto', () => {
-    it('Em um formato de objeto', async () => {
+    it('em um formato de objeto', async () => {
       const response = await productsModel.getProductById();
 
       expect(response).to.be.an('object');
