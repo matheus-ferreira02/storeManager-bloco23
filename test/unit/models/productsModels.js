@@ -4,7 +4,7 @@ const connection = require('../../../models/connection');
 const productsModel = require('../../../models/productsModel');
 
 describe('Testa se a Model retorna ', () => {
-  before(async () => {
+  before(() => {
     const execute = [[{
       id: 1,
       name: 'Martelo do Thor',
@@ -14,7 +14,7 @@ describe('Testa se a Model retorna ', () => {
     sinon.stub(connection, 'execute').resolves(execute);
   });
 
-  after(async () => {
+  after(() => {
     connection.execute.restore();
   });
 
@@ -30,5 +30,5 @@ describe('Testa se a Model retorna ', () => {
 
       expect(response[0]).to.deep.keys('id', 'name', 'quantity');
     });
-  })
-})
+  });
+});

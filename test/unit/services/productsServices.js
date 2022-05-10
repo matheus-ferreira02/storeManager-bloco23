@@ -4,7 +4,7 @@ const productsModel = require('../../../models/productsModel');
 const productsService = require('../../../services/productsService');
 
 describe('Testa se a Service retorna', () => {
-  before(async () => {
+  before(() => {
     const execute = [{
       id: 1,
       name: 'Martelo do Thor',
@@ -14,7 +14,7 @@ describe('Testa se a Service retorna', () => {
     sinon.stub(productsModel, 'getAll').resolves(execute);
   });
 
-  after(async () => {
+  after(() => {
     productsModel.getAll.restore();
   });
 
