@@ -40,4 +40,22 @@ describe('Testa se a Controller retorna', () => {
       expect(res.status.calledWith(200)).to.be.equal(true);
     });
   });
+
+  describe('apenas um produto', () => {
+    before(() => {
+      req.params = { id: 1 }
+    });
+
+    it('em um JSON com o formato correto', async () => {
+      await productsController.getProductById(req, res);
+
+      expect(res.json.calledWith(data)).to.be.equal(true);
+    });
+
+    it('com o status 200 na resposta', async () => {
+      await productsController.getProductById(req, res);
+
+      expect(res.status.calledWith(200)).to.be.equal(true);
+    });
+  });
 });
