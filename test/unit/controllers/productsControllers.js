@@ -3,7 +3,7 @@ const { expect } = require('chai');
 const productsService = require('../../../services/productsService');
 const productsController = require('../../../controllers/productsController');
 
-describe('Testa se a Controller retorna', () => {
+describe('Testa se a Controller dos Products retorna', () => {
   const req = {};
   const res = {};
 

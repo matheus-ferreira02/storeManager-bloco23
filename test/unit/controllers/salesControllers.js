@@ -52,6 +52,8 @@ describe('Testa se a Controller de Sales retorna', () => {
     it('em um JSON com o formato correto', async () => {
       await salesController.getSaleById(req, res);
 
+      Date.now()
+
       expect(res.json.calledWith(execute)).to.be.equal(true);
     });
 

@@ -4,7 +4,7 @@ const productsModel = require('../../../models/productsModel');
 const productsService = require('../../../services/productsService');
 
 
-describe('Testa se a Service retorna', () => {
+describe('Testa se a Service dos Products retorna', () => {
   describe('um erro, caso não exista um produto', () => {
     before(async () => {
       const execute = [];

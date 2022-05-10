@@ -10,17 +10,18 @@ const serializeSales = (data) => ({
 
 const getAll = async () => {
   const response = await salesModel.getAll();
+
   const data = response.map(serializeSales);
 
   return data;
 };
 
 const getSaleById = async (id) => {
-  const [response] = await salesModel.getSaleById(id);
+  const response = await salesModel.getSaleById(id);
 
-  if (!response) throw createError(404, 'Sale not found');
+  if (!response.length) throw createError(404, 'Sale not found');
 
-  const data = serializeSales(response);
+  const data = response.map(serializeSales);
 
   return data;
 };

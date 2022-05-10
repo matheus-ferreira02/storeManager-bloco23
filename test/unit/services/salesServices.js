@@ -85,13 +85,13 @@ describe('Testa se a Service retorna', () => {
     it('em um formato de objeto', async () => {
       const response = await salesService.getSaleById(1);
 
-      expect(response).to.be.an('object');
+      expect(response).to.be.an('array');
     });
 
     it('com as propriedades corretas', async () => {
       const response = await salesService.getSaleById(1);
 
-      expect(response).to.deep.keys('saleId', 'date', 'productId', 'quantity');
+      expect(response[0]).to.deep.keys('saleId', 'date', 'productId', 'quantity');
     });
   });
 });

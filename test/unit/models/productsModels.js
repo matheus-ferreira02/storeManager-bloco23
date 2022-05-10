@@ -3,7 +3,7 @@ const { expect } = require('chai');
 const connection = require('../../../models/connection');
 const productsModel = require('../../../models/productsModel');
 
-describe('Testa se a Model retorna ', () => {
+describe('Testa se a Model de Products retorna ', () => {
   before(() => {
     const execute = [[{
       id: 1,
