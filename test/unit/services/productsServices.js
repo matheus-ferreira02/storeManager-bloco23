@@ -5,11 +5,11 @@ const productsService = require('../../../services/productsService');
 
 describe('Testa se a Service retorna', () => {
   before(async () => {
-    const execute = [[{
+    const execute = [{
       id: 1,
       name: 'Martelo do Thor',
       quantity: 10
-    }], []];
+    }];
 
     sinon.stub(productsModel, 'getAll').resolves(execute);
   });
