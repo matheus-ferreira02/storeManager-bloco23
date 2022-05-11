@@ -9,4 +9,6 @@ router.get('/:id', rescue(salesController.getSaleById));
 
 router.post('/', rescue(validateBodySales));
 
+router.put('/:id', rescue(validateBodySales));
+
 module.exports = router;
