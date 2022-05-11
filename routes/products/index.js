@@ -6,7 +6,7 @@ const validateBody = require('../../middlewares/validateBody');
 router.get('/', rescue(productsController.getAll));
 
 router.get('/:id', rescue(productsController.getProductById));
-
-router.post('/', validateBody);
-
+router.post('/', validateBody, (req, res) => {
+  res.status(400).send('ok');
+});
 module.exports = router;

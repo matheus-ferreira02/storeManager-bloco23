@@ -27,6 +27,7 @@ describe("03-validations", () => {
 				.expect(400)
 				.then((response) => {
 					const { body } = response;
+					console.log(response);
 					expect(Object.keys(body)).toContain("message");
 					expect(body.message).toEqual('"name" is required');
 				});
