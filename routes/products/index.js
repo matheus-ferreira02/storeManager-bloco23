@@ -7,9 +7,7 @@ router.get('/', rescue(productsController.getAll));
 
 router.get('/:id', rescue(productsController.getProductById));
 
-router.post('/', rescue(validateBodyProducts), (req, res) => {
-  res.status(400).send('ok');
-});
+router.post('/', rescue(validateBodyProducts), rescue(productsController.createProduct));
 
 router.put('/:id', rescue(validateBodyProducts), (req, res) => {
   res.status(400).send('ok');
