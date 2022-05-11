@@ -46,3 +46,34 @@ describe('Testa se a Model de Products retorna ', () => {
     });
   });
 });
+
+describe('Testa se a Model de Products retorna ', () => {
+  describe('quando cadastrar um produto', () => {
+    before(() => {
+      const execute = [[{
+        id: 1,
+        name: 'produto',
+        quantity: 10
+      }], []];
+
+      sinon.stub(connection, 'execute').resolves(execute)
+    });
+
+    after(() => {
+      connection.execute.restore();
+    });
+
+
+    it('um objeto', async () => {
+      const response = await productsModel.createProduct();
+
+      expect(response).to.be.an('object');
+    });
+
+    it('um objeto com o id do produto e seus valores', async () => {
+      const response = await productsModel.createProduct();
+
+      expect(response[0]).to.deep.keys('id', 'name', 'quantity');
+    });
+  });
+});
