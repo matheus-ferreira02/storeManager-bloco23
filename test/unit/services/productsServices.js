@@ -94,3 +94,35 @@ describe('Testa se a Service dos Products retorna', () => {
   });
 });
 
+describe('Testa se a createProduct da Service retorna ', () => {
+  describe('quando cadastrar um produto', () => {
+    before(() => {
+      const execute = {
+        id: 1,
+        name: 'Manopla do Thanos',
+        quantity: 12
+      };
+
+      sinon.stub(productsModel, 'createProduct').resolves(execute)
+    });
+
+    after(() => {
+      productsModel.createProduct.restore();
+    });
+
+
+    it('um objeto', async () => {
+      const response = await productsService.createProduct();
+
+      expect(response).to.be.an('object');
+    });
+
+    it('um objeto com o id do produto e seus valores', async () => {
+      const name = 'Manopla do Thanos';
+      const quantity = 12;
+      const response = await productsService.createProduct(name, quantity);
+
+      expect(response).to.deep.keys('id', 'name', 'quantity');
+    });
+  });
+});
