@@ -1,3 +1,5 @@
+const schemaBody = require('../joi/schemaBody');
+
 const validateBody = (req, _res, next) => {
   const { name, quantity } = req.body;
 
