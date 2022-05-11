@@ -47,13 +47,11 @@ describe('Testa se a Model de Products retorna ', () => {
   });
 });
 
-describe('Testa se a Model de Products retorna ', () => {
+describe('Testa se a createProduct da Model retorna ', () => {
   describe('quando cadastrar um produto', () => {
     before(() => {
       const execute = [[{
-        id: 1,
-        name: 'produto',
-        quantity: 10
+        insertId: 5
       }], []];
 
       sinon.stub(connection, 'execute').resolves(execute)
@@ -71,9 +69,11 @@ describe('Testa se a Model de Products retorna ', () => {
     });
 
     it('um objeto com o id do produto e seus valores', async () => {
-      const response = await productsModel.createProduct();
+      const name = 'Manopla do Thanos';
+      const quantity = 12;
+      const response = await productsModel.createProduct(name, quantity);
 
-      expect(response[0]).to.deep.keys('id', 'name', 'quantity');
+      expect(response).to.deep.keys('id', 'name', 'quantity');
     });
   });
 });
