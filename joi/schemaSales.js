@@ -1,7 +1,7 @@
 const Joi = require('joi');
 
 const schemaSales = Joi.object({
-  productId: Joi.string().required().messages({
+  productId: Joi.number().required().messages({
     'any.required': '"productId" is required',
   }),
   quantity: Joi.number().min(1).required().messages({
