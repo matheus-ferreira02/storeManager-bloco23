@@ -61,3 +61,44 @@ describe('Testa se a Controller dos Products retorna', () => {
     });
   });
 });
+
+describe('Testa se a createProduct da Controller retorna', () => {
+  const req = {};
+  const res = {};
+
+  const data = [{
+    id: 1,
+    name: 'Manopla do Thanos',
+    quantity: 10
+  }];
+
+  before(() => {
+    res.status = sinon.stub()
+      .returns(res);
+
+    res.json = sinon.stub()
+      .returns(data);
+
+    sinon.stub(productsService, 'getAll').resolves(data);
+    sinon.stub(productsService, 'getProductById').resolves(data);
+  });
+
+  after(() => {
+    productsService.getAll.restore();
+    productsService.getProductById.restore();
+  });
+
+  describe('o produto cadastrado', () => {
+    it('em um JSON com o formato correto', async () => {
+      await productsController.createProduct(req, res);
+
+      expect(res.json.calledWith(data)).to.be.equal(true);
+    });
+
+    it('com o status 201 na resposta', async () => {
+      await productsController.createProduct(req, res);
+
+      expect(res.status.calledWith(201)).to.be.equal(true);
+    });
+  });
+});
