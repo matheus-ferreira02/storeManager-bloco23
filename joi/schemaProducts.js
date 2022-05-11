@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-const schemaBody = Joi.object({
+const schemaProducts = Joi.object({
   name: Joi.string().min(5).required().messages({
     'any.required': '"name" is required',
     'string.min': '"name" length must be at least 5 characters long',
@@ -11,4 +11,4 @@ const schemaBody = Joi.object({
   }),
 });
 
-module.exports = schemaBody;
+module.exports = schemaProducts;

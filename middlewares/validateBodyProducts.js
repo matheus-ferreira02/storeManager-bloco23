@@ -1,10 +1,10 @@
-const schemaBody = require('../joi/schemaBody');
+const schemaProducts = require('../joi/schemaProducts');
 const createObjError = require('../helpers/createObjError');
 
-const validateBody = (req, _res, next) => {
+const validateBodyProducts = (req, _res, next) => {
   const { name, quantity } = req.body;
 
-  const { error } = schemaBody.validate({ name, quantity });
+  const { error } = schemaProducts.validate({ name, quantity });
 
   if (error) {
     const { type } = error.details[0];
@@ -15,4 +15,4 @@ const validateBody = (req, _res, next) => {
   next();
 };
 
-module.exports = validateBody;
+module.exports = validateBodyProducts;
