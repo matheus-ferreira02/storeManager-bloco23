@@ -63,14 +63,17 @@ describe('Testa se a Controller dos Products retorna', () => {
 });
 
 describe('Testa se a createProduct da Controller retorna', () => {
-  const req = {};
+  const req = { body: {
+    name: 'Manopla do Thanos',
+    quantity: 10
+  } };
   const res = {};
 
-  const data = [{
+  const data = {
     id: 1,
     name: 'Manopla do Thanos',
     quantity: 10
-  }];
+  };
 
   before(() => {
     res.status = sinon.stub()
@@ -79,13 +82,11 @@ describe('Testa se a createProduct da Controller retorna', () => {
     res.json = sinon.stub()
       .returns(data);
 
-    sinon.stub(productsService, 'getAll').resolves(data);
-    sinon.stub(productsService, 'getProductById').resolves(data);
+    sinon.stub(productsService, 'createProduct').resolves(data);
   });
 
   after(() => {
-    productsService.getAll.restore();
-    productsService.getProductById.restore();
+    productsService.createProduct.restore();
   });
 
   describe('o produto cadastrado', () => {
