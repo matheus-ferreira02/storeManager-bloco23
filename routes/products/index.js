@@ -7,7 +7,11 @@ router.get('/', rescue(productsController.getAll));
 
 router.get('/:id', rescue(productsController.getProductById));
 
-router.post('/', validateBodyProducts, (req, res) => {
+router.post('/', rescue(validateBodyProducts), (req, res) => {
+  res.status(400).send('ok');
+});
+
+router.put('/:id', rescue(validateBodyProducts), (req, res) => {
   res.status(400).send('ok');
 });
 
