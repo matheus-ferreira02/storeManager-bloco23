@@ -80,3 +80,25 @@ describe('Testa se a função registerSale da Model retorna', () => {
     expect(response).to.be.equal(1);
   });
 });
+
+describe('Testa se a função registerSaleProduct da Model retorna', () => {
+  const saleProduct = {
+    productId: 1,
+    quantity: 3
+  }
+  before(() => {
+    sinon.stub(connection, 'execute').resolves();
+  });
+
+  after(() => {
+    connection.execute.restore();
+  });
+
+  it('um objeto com a venda do produto', async () => {
+    const { productId, quantity } = saleProduct;
+    const response = await salesModel.registerSaleProduct(productId, quantity);
+
+    expect(response).that.deep.equals(saleProduct);
+
+  });
+});
