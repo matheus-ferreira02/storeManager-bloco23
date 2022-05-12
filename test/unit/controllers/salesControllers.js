@@ -52,8 +52,6 @@ describe('Testa se a Controller de Sales retorna', () => {
     it('em um JSON com o formato correto', async () => {
       await salesController.getSaleById(req, res);
 
-      Date.now()
-
       expect(res.json.calledWith(execute)).to.be.equal(true);
     });
 
@@ -62,5 +60,56 @@ describe('Testa se a Controller de Sales retorna', () => {
 
       expect(res.status.calledWith(200)).to.be.equal(true);
     });
+  });
+});
+
+describe('Testa se a função registerSaleProduct da Controller responde', () => {
+  const mockSaleProducts = [
+    {
+      productId: 1,
+      quantity: 3
+    },
+    {
+      productId: 2,
+      quantity: 5
+    },
+  ]
+
+  const execute = {
+    id: 1,
+    itemsSold: [
+      ...mockSaleProducts,
+    ],
+  };
+
+  req = {
+    body: mockSaleProducts,
+  };
+  res = {};
+
+  res.status = sinon.stub()
+      .returns(res);
+
+  res.json = sinon.stub()
+    .returns(execute);
+  
+  before(() => {
+    sinon.stub(salesService, 'registerSale').resolves(execute);
+  });
+
+  after(() => {
+    salesService.registerSale.restore();
+  });
+
+  it('com o status 201', async () => {
+    await salesController.registerSale(req, res);
+
+    expect(res.status.calledWith(201)).to.be.equal(true);
+  });
+
+  it('em um JSON no formato correto', async () => {
+    await salesController.registerSale(mockSaleProducts);
+
+    expect(res.json.calledWith(execute)).to.be.equal(true);
   });
 });

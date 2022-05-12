@@ -111,14 +111,7 @@ describe('Testa se a função registerSaleProduct da Service retorna', () => {
       productId: 2,
       quantity: 5
     }
-  ]
-
-  const responseSaleProduct = {
-    id: insertId,
-    itemsSold: [
-      saleProduct
-    ],
-  };
+  ];
   
   before(() => {
     sinon.stub(salesModel, 'registerSale').resolves(1);
