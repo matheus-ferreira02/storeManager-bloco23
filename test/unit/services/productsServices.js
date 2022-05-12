@@ -173,4 +173,33 @@ describe('Testa se a função updateProduct da camada de Service retorna', () =>
       }
     });
   });
+
+  describe('com sucesso', () => {
+    before(() => { 
+      const execute = [{
+        id: 1,
+        name: 'Martelo do Thor',
+        quantity: 10
+      }];
+
+      sinon.stub(productsModel, 'getProductById').resolves(execute);
+    });
+  
+    after(() => {
+      productsModel.getProductById.restore();
+    });
+
+    const updatedProduct = {
+      id: 1,
+      name: 'Manopla do Thanos',
+      quantity: 15
+    }
+
+    it('um objeto com os dados atualizados', async () => {
+      const response = await productsService.updateProduct(1, updatedProduct.name, updatedProduct.quantity);
+
+      expect(response).to.be.an('object');
+      expect(response).to.be.equals(updatedProduct);
+    });
+  });
 });
