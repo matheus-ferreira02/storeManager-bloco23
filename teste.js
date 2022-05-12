@@ -1,14 +1,19 @@
-const connection = require('./models/connection');
+const saleRegister = require('./services/salesService');
 
 const teste = async () => {
-  const query = `insert INTO
-  StoreManager.sales_products (sale_id, product_id, quantity)
-VALUES
-  (2, 1, 10)`;
+  const testafe = [
+    {
+      productId: 1,
+      quantity: 3,
+    },
 
-  const response = await connection.execute(query);
-
-  console.log(response);
+    {
+      productId: 2,
+      quantity: 6,
+    },
+  ];
+  const ola = await saleRegister.registerSale(testafe);
+  console.log(ola);
 };
 
 teste();

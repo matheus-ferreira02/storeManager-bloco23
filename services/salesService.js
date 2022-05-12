@@ -32,7 +32,26 @@ const getSaleById = async (id) => {
   return data;
 };
 
+const registerSale = async (saleProducts) => {
+  const idSale = await salesModel.registerSale();
+
+  const salesProductsPending = saleProducts
+    .map((sale) => salesModel.registerSaleProduct(idSale, sale));
+
+  const salesProductsResolved = await Promise.all(salesProductsPending);
+
+  const dataSale = {
+    id: idSale,
+    itemsSold: [
+      ...salesProductsResolved,
+    ],
+  };
+  
+  return dataSale;
+};
+
 module.exports = {
   getAll,
   getSaleById,
+  registerSale,
 };

@@ -102,6 +102,17 @@ describe('Testa se a função registerSaleProduct da Service retorna', () => {
     quantity: 3,
   }
 
+  const mockSaleProducts = [
+    {
+      productId: 1,
+      quantity: 3
+    },
+    {
+      productId: 2,
+      quantity: 5
+    }
+  ]
+
   const responseSaleProduct = {
     id: insertId,
     itemsSold: [
@@ -110,8 +121,6 @@ describe('Testa se a função registerSaleProduct da Service retorna', () => {
   };
   
   before(() => {
-    
-
     sinon.stub(salesModel, 'registerSale').resolves(1);
     sinon.stub(salesModel, 'registerSaleProduct').resolves(saleProduct);
   });
@@ -122,15 +131,17 @@ describe('Testa se a função registerSaleProduct da Service retorna', () => {
   });
 
   it('um objeto', async () => {
-    const response = await salesModel.registerSale();
+    const response = await salesService.registerSale(mockSaleProducts);
 
     expect(response).to.be.an('object');
     expect(response).to.deep.keys('id', 'itemsSold');
   });
 
   it('com as propriedades corretas', async () => {
-    const response = await salesModel.registerSale();
+    const response = await salesService.registerSale(mockSaleProducts);
 
-    expect(response).that.deep.equals(responseSaleProduct);
+    response.itemsSold.map((item, index) => {
+      expect(item).to.deep.keys('productId', 'quantity');
+    });
   });
 });

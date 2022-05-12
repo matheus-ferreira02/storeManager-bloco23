@@ -36,15 +36,15 @@ const getSaleById = async (id) => {
   return response;
 };
 
-const registerSale = async (timestamp) => {
+const registerSale = async () => {
   const query = `
     INSERT INTO
       StoreManager.sales (date)
     VALUES
-      (?)
+      (NOW())
   `;
 
-  const [{ insertId }] = await connection.execute(query, [timestamp]);
+  const [{ insertId }] = await connection.execute(query);
 
   return insertId;
 };
