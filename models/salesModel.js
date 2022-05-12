@@ -36,7 +36,21 @@ const getSaleById = async (id) => {
   return response;
 };
 
+const registerSale = async (timestamp) => {
+  const query = `
+    INSERT INTO
+      StoreManager.sales (date)
+    VALUES
+      (?)
+  `;
+
+  const [{ insertId }] = await connection.execute(query, [timestamp]);
+
+  return insertId;
+};
+
 module.exports = {
   getAll,
   getSaleById,
+  registerSale,
 };

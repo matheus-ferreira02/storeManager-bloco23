@@ -50,9 +50,9 @@ describe('Testa se a Model de Products retorna ', () => {
 describe('Testa se a createProduct da Model retorna ', () => {
   describe('quando cadastrar um produto', () => {
     before(() => {
-      const execute = [[{
+      const execute = [{
         insertId: 5
-      }], []];
+      }, []];
 
       sinon.stub(connection, 'execute').resolves(execute)
     });

@@ -64,9 +64,9 @@ describe('Testa se a Model retorna ', () => {
 
 describe('Testa se a função registerSale da Model retorna', () => {
   before(() => {
-    const execute = [[{
-      insertId: 1,
-    }], []]
+    const execute = [{
+      insertId: 1
+    }, []];
     sinon.stub(connection, 'execute').resolves(execute);
   });
 
@@ -77,6 +77,6 @@ describe('Testa se a função registerSale da Model retorna', () => {
   it('o id da nova venda', async () => {
     const response = await salesModel.registerSale();
 
-    expect(response).to.be.an('object');
+    expect(response).to.be.equal(1);
   });
 });
