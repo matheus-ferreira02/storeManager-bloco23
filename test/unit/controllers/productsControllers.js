@@ -103,3 +103,41 @@ describe('Testa se a createProduct da Controller retorna', () => {
     });
   });
 });
+
+describe('Testa se a updateProduct da Controller retorna', () => {
+  req = {}
+  res = {};
+
+  before(() => {
+    const execute = {
+      id: 1,
+      name: 'Manopla do Thanos',
+      quantity: 15
+    }
+
+    sinon.stub(productsService, 'updateProduct').resolves(execute);
+
+    res.status = sinon.stub()
+    .returns(res);
+
+    res.json = sinon.stub()
+      .returns();
+  });
+
+  after(() => {
+    productsService.updateProduct.restore();
+  });
+
+  it('a resposta com o status 200', async () => {
+    await productsService.updateProduct();
+
+    expect(res.status.calledWith(200)).to.be.equal(true);
+  });
+
+  it('a resposta com o json correto', async () => {
+    await productsService.updateProduct();
+
+    expect(res.json.calledWith(200)).to.be.equal(execute);
+  });
+});
+
