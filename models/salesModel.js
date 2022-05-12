@@ -37,7 +37,6 @@ const getSaleById = async (id) => {
 };
 
 const registerSale = async () => {
-  console.log('entrou sale mdel');
   const query = `
     INSERT INTO
       StoreManager.sales (date)
