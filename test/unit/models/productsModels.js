@@ -116,15 +116,18 @@ describe('Testa se a updateProduct da Model', () => {
   })
 
   it('atualiza o produto', async () => {
-    const query = `UPDATE
-        StoreManager.products
-      SET name = 'teste',
-          quantity = 222
-      WHERE id = ?`;
+    const query = `
+    UPDATE
+      StoreManager.products
+    SET name = ?,
+        quantity = ?
+    WHERE id = ?`;
 
     const id = 1;
-    await productsModel.updateProduct();
+    const name= 'Thor';
+    const quantity = 12;
+    await productsModel.updateProduct(id, name, quantity);
 
-    expect(connection.execute.calledWith(query, [id])).to.be.equal(true);
+    expect(connection.execute.calledWith(query, [id, name, quantity])).to.be.equal(true);
   });
 });
