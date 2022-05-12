@@ -13,7 +13,15 @@ const getSaleById = async (req, res) => {
   return res.status(200).json(response);
 };
 
+const registerSale = async (req, res) => {
+  const salesProducts = req.body;
+  const response = await salesService.registerSale(salesProducts);
+
+  res.status(201).json(response);
+};
+
 module.exports = {
   getAll,
   getSaleById,
+  registerSale,
 };

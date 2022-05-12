@@ -63,7 +63,7 @@ describe('Testa se a Controller de Sales retorna', () => {
   });
 });
 
-describe('Testa se a função registerSaleProduct da Controller responde', () => {
+describe('Testa se a função registerSale da Controller responde', () => {
   const mockSaleProducts = [
     {
       productId: 1,
@@ -86,14 +86,14 @@ describe('Testa se a função registerSaleProduct da Controller responde', () =>
     body: mockSaleProducts,
   };
   res = {};
-
-  res.status = sinon.stub()
-      .returns(res);
-
-  res.json = sinon.stub()
-    .returns(execute);
   
   before(() => {
+    res.status = sinon.stub()
+      .returns(res);
+
+    res.json = sinon.stub()
+    .returns(execute);
+
     sinon.stub(salesService, 'registerSale').resolves(execute);
   });
 
@@ -105,10 +105,11 @@ describe('Testa se a função registerSaleProduct da Controller responde', () =>
     await salesController.registerSale(req, res);
 
     expect(res.status.calledWith(201)).to.be.equal(true);
+    expect(res.json.calledWith(execute)).to.be.equal(true);
   });
 
   it('em um JSON no formato correto', async () => {
-    await salesController.registerSale(mockSaleProducts);
+    await salesController.registerSale(req, res);
 
     expect(res.json.calledWith(execute)).to.be.equal(true);
   });
