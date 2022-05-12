@@ -104,12 +104,12 @@ describe('Testa se a createProduct da Service retorna ', () => {
       };
 
       sinon.stub(productsModel, 'createProduct').resolves(execute);
-      sinon.stub(productsModel, 'getProductById').resolves([]);
+      sinon.stub(productsModel, 'getProductByName').resolves([]);
     });
 
     after(() => {
       productsModel.createProduct.restore();
-      productsModel.getProductById.restore();
+      productsModel.getProductByName.restore();
     });
 
     const name = 'Martelo do Thor';
@@ -136,7 +136,7 @@ describe('Testa se a createProduct da Service retorna ', () => {
         quantity: 10
       }];
 
-      sinon.stub(productsModel, 'getProductById').resolves(execute);
+      sinon.stub(productsModel, 'getProductByName').resolves(execute);
     });
 
     after(() => {

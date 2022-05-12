@@ -1,3 +1,4 @@
+const createObjError = require('../helpers/createObjError');
 const createError = require('../helpers/createObjError');
 const productsModel = require('../models/productsModel');
 
@@ -16,6 +17,10 @@ const getProductById = async (id) => {
 };
 
 const createProduct = async (name, quantity) => {
+  const findProduct = await productsModel.getProductByName(name);
+
+  if (findProduct.length) throw createObjError(409, 'Product already exists');
+
   const response = await productsModel.createProduct(name, quantity);
 
   return response;
