@@ -86,6 +86,7 @@ describe('Testa se a função registerSaleProduct da Model retorna', () => {
     productId: 1,
     quantity: 3
   }
+  
   before(() => {
     sinon.stub(connection, 'execute').resolves();
   });

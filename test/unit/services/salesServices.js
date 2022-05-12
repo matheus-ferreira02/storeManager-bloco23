@@ -95,3 +95,42 @@ describe('Testa se a Service da Sales retorna', () => {
   });
 });
 
+describe('Testa se a função registerSaleProduct da Service retorna', () => {
+  const insertId = 1;  
+  const saleProduct = {
+    productId: 1,
+    quantity: 3,
+  }
+
+  const responseSaleProduct = {
+    id: insertId,
+    itemsSold: [
+      saleProduct
+    ],
+  };
+  
+  before(() => {
+    
+
+    sinon.stub(salesModel, 'registerSale').resolves(1);
+    sinon.stub(salesModel, 'registerSaleProduct').resolves(saleProduct);
+  });
+
+  after(() => {
+    salesModel.registerSale.restore();
+    salesModel.registerSaleProduct.restore();
+  });
+
+  it('um objeto', async () => {
+    const response = await salesModel.registerSale();
+
+    expect(response).to.be.an('object');
+    expect(response).to.deep.keys('id', 'itemsSold');
+  });
+
+  it('com as propriedades corretas', async () => {
+    const response = await salesModel.registerSale();
+
+    expect(response).that.deep.equals(responseSaleProduct);
+  });
+});
