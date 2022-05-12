@@ -105,3 +105,26 @@ describe('Testa se a getProductByName da Model retorna', () => {
     expect(response).to.deep.keys('id', 'name', 'quantity');
   });
 });
+
+describe('Testa se a updateProduct da Model', () => {
+  before(() => {
+    sinon.stub(connection, 'execute').resolves();
+  });
+
+  after(() => {
+    connection.execute.restore();
+  })
+
+  it('atualiza o produto', async () => {
+    const query = `UPDATE
+        StoreManager.products
+      SET name = 'teste',
+          quantity = 222
+      WHERE id = ?`;
+
+    const id = 1;
+    await productsModel.updateProduct();
+
+    expect(connection.execute.calledWith(query, [id])).to.be.equal(true);
+  });
+});
