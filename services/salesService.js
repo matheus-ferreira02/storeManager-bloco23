@@ -33,6 +33,7 @@ const getSaleById = async (id) => {
 };
 
 const registerSale = async (saleProducts) => {
+  console.log('entrou sale');
   const idSale = await salesModel.registerSale();
 
   const salesProductsPending = saleProducts
@@ -46,7 +47,7 @@ const registerSale = async (saleProducts) => {
       ...salesProductsResolved,
     ],
   };
-  
+
   return dataSale;
 };
 

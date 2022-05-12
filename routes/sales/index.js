@@ -7,7 +7,7 @@ router.get('/', rescue(salesController.getAll));
 
 router.get('/:id', rescue(salesController.getSaleById));
 
-router.post('/', rescue(validateBodySales));
+router.post('/', rescue(validateBodySales), rescue(salesController.registerSale));
 
 router.put('/:id', rescue(validateBodySales));
 
