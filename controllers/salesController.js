@@ -15,7 +15,6 @@ const getSaleById = async (req, res) => {
 
 const registerSale = async (req, res) => {
   const salesProducts = req.body;
-  console.log('entrou controller');
   const response = await salesService.registerSale(salesProducts);
 
   res.status(201).json(response);

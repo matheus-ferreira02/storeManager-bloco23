@@ -51,8 +51,6 @@ const registerSale = async () => {
 };
 
 const registerSaleProduct = async (saleId, { productId, quantity }) => {
-  console.log(saleId, productId, quantity);
-
   const query = `
     INSERT INTO
       StoreManager.sales_products (sale_id, product_id, quantity)
