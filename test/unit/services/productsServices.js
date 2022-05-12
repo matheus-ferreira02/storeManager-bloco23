@@ -199,7 +199,8 @@ describe('Testa se a função updateProduct da camada de Service retorna', () =>
       const response = await productsService.updateProduct(1, updatedProduct.name, updatedProduct.quantity);
 
       expect(response).to.be.an('object');
-      expect(response).to.be.equals(updatedProduct);
+      expect(response).to.deep.keys('id', 'name', 'quantity');
+      expect(response).that.deep.equals(updatedProduct);
     });
   });
 });

@@ -28,6 +28,12 @@ const createProduct = async (name, quantity) => {
 
 const updateProduct = async (id, name, quantity) => {
   await getProductById(id);
+
+  return {
+    id,
+    name,
+    quantity,
+  };
 };
 
 module.exports = {
