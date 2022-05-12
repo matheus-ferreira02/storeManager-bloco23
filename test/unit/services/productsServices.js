@@ -153,3 +153,24 @@ describe('Testa se a createProduct da Service retorna ', () => {
     })
   });
 });
+
+describe('Testa se a função updateProduct da camada de Service retorna', () => {
+  describe('um erro caso', () => {
+    before(() => {  
+      sinon.stub(productsModel, 'getProductById').resolves([]);
+    });
+  
+    after(() => {
+      productsModel.getProductById.restore();
+    });
+
+    it('não exista o produto', async () => {
+      try {
+        await productsService.updateProduct();
+      } catch (error) {
+        expect(error.message).to.be.equals('Product not found');
+        expect(error.status).to.be.equals(404);
+      }
+    });
+  });
+});
