@@ -19,7 +19,7 @@ describe('Testa se a Controller de Sales retorna', () => {
       .returns(res);
 
     res.json = sinon.stub()
-      .returns(execute);
+      .returns();
 
     sinon.stub(salesService, 'getAll').resolves(execute);
     sinon.stub(salesService, 'getSaleById').resolves(execute);

@@ -18,7 +18,7 @@ describe('Testa se a Controller dos Products retorna', () => {
       .returns(res);
 
     res.json = sinon.stub()
-      .returns(data);
+      .returns();
 
     sinon.stub(productsService, 'getAll').resolves(data);
     sinon.stub(productsService, 'getProductById').resolves(data);
@@ -80,7 +80,7 @@ describe('Testa se a createProduct da Controller retorna', () => {
       .returns(res);
 
     res.json = sinon.stub()
-      .returns(data);
+      .returns();
 
     sinon.stub(productsService, 'createProduct').resolves(data);
   });
@@ -105,15 +105,6 @@ describe('Testa se a createProduct da Controller retorna', () => {
 });
 
 describe('Testa se a updateProduct da Controller retorna', () => {
-  req = {
-    body: {
-      name: 'Manopla do Thanos',
-      quantity: 15
-    },
-    params: {
-      id: 1
-    }
-  }
   res = {};
 
   const execute = {
@@ -126,7 +117,7 @@ describe('Testa se a updateProduct da Controller retorna', () => {
     sinon.stub(productsService, 'updateProduct').resolves(execute);
 
     res.status = sinon.stub()
-    .returns(res);
+      .returns(res);
 
     res.json = sinon.stub()
       .returns();
@@ -137,6 +128,15 @@ describe('Testa se a updateProduct da Controller retorna', () => {
   });
 
   it('a resposta com o status 200', async () => {
+    req = {
+      body: {
+        name: 'Manopla do Thanos',
+        quantity: 15
+      },
+      params: {
+        id: 1
+      }
+    }
     await productsController.updateProduct(req, res);
 
     expect(res.status.calledWith(200)).to.be.equal(true);
