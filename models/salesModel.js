@@ -49,8 +49,24 @@ const registerSale = async (timestamp) => {
   return insertId;
 };
 
+const registerSaleProduct = async (saleId, productId, quantity) => {
+  const query = `
+    INSERT INTO
+      StoreManager.sales_products (sale_id, product_id, quantity)
+    VALUES
+      (?, ?, ?)`;
+
+  await connection.execute(query, [saleId, productId, quantity]);
+
+  return {
+    productId,
+    quantity,
+  };
+};
+
 module.exports = {
   getAll,
   getSaleById,
   registerSale,
+  registerSaleProduct,
 };
