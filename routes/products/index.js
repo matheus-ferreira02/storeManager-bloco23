@@ -9,8 +9,6 @@ router.get('/:id', rescue(productsController.getProductById));
 
 router.post('/', rescue(validateBodyProducts), rescue(productsController.createProduct));
 
-router.put('/:id', rescue(validateBodyProducts), (req, res) => {
-  res.status(400).send('ok');
-});
+router.put('/:id', rescue(validateBodyProducts), productsController.updateProduct);
 
 module.exports = router;
