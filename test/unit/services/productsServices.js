@@ -103,26 +103,53 @@ describe('Testa se a createProduct da Service retorna ', () => {
         quantity: 12
       };
 
-      sinon.stub(productsModel, 'createProduct').resolves(execute)
+      sinon.stub(productsModel, 'createProduct').resolves(execute);
+      sinon.stub(productsModel, 'getProductById').resolves([]);
     });
 
     after(() => {
       productsModel.createProduct.restore();
+      productsModel.getProductById.restore();
     });
 
+    const name = 'Martelo do Thor';
+    const quantity = 12;
 
     it('um objeto', async () => {
-      const response = await productsService.createProduct();
+      const response = await productsService.createProduct(name, quantity);
 
       expect(response).to.be.an('object');
     });
 
     it('um objeto com o id do produto e seus valores', async () => {
-      const name = 'Manopla do Thanos';
-      const quantity = 12;
       const response = await productsService.createProduct(name, quantity);
 
       expect(response).to.deep.keys('id', 'name', 'quantity');
     });
+  });
+
+  describe('um erro ao cadastrar', () => {
+    before(() => {
+      const execute = [{
+        id: 1,
+        name: 'Martelo do Thor',
+        quantity: 10
+      }];
+
+      sinon.stub(productsModel, 'getProductById').resolves(execute);
+    });
+
+    after(() => {
+      productsModel.getProductById.restore();
+    });
+
+    it('um produto já existente', async () => {
+      try {
+        await productsService.createProduct(execute.name, execute.quantity);
+      } catch (error) {
+        expect(error.message).to.be.equals('Product already exists');
+        expect(error.status).to.be.equals(409);
+      }
+    })
   });
 });
