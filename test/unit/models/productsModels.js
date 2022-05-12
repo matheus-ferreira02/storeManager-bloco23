@@ -79,13 +79,13 @@ describe('Testa se a createProduct da Model retorna ', () => {
 });
 
 describe('Testa se a getProductByName da Model retorna', () => {
-  before(() => {
-    const execute = [[{
-      id: 1,
-      name: 'Martelo do Thor',
-      quantity: 12
-    }], []];
+  const execute = [[{
+    id: 1,
+    name: 'Martelo do Thor',
+    quantity: 12
+  }], []];
 
+  before(() => {
     sinon.stub(connection, 'execute').resolves(execute)
   });
 
@@ -93,13 +93,13 @@ describe('Testa se a getProductByName da Model retorna', () => {
     connection.execute.restore();
   })
 
-  it('um array', () => {
+  it('um array', async () => {
     const response = await productsModel.getProductByName(execute.name);
 
     expect(response).to.be.an('array');
   });
 
-  it('com as propriedades corretas ', () => {
+  it('com as propriedades corretas ', async () => {
     const [response] = await productsModel.getProductByName(execute.name);
 
     expect(response).to.deep.keys('id', 'name', 'quantity');

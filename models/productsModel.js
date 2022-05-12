@@ -34,8 +34,18 @@ const createProduct = async (name, quantity) => {
   };
 };
 
+const getProductByName = async (name) => {
+  const query = `
+      SELECT * FROM StoreManager.products WHERE name = ?`;
+
+  const [response] = await connection.execute(query, [name]);
+
+  return response;
+};
+
 module.exports = {
   getAll,
   getProductById,
   createProduct,
+  getProductByName,
 };
