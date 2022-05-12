@@ -129,18 +129,18 @@ describe('Testa se a createProduct da Service retorna ', () => {
   });
 
   describe('um erro ao cadastrar', () => {
-    before(() => {
-      const execute = [{
-        id: 1,
-        name: 'Martelo do Thor',
-        quantity: 10
-      }];
+    const execute = [{
+      id: 1,
+      name: 'Martelo do Thor',
+      quantity: 10
+    }];
 
+    before(() => {
       sinon.stub(productsModel, 'getProductByName').resolves(execute);
     });
 
     after(() => {
-      productsModel.getProductById.restore();
+      productsModel.getProductByName.restore();
     });
 
     it('um produto já existente', async () => {
