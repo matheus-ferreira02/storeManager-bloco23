@@ -77,3 +77,31 @@ describe('Testa se a createProduct da Model retorna ', () => {
     });
   });
 });
+
+describe('Testa se a getProductByName da Model retorna', () => {
+  before(() => {
+    const execute = [[{
+      id: 1,
+      name: 'Martelo do Thor',
+      quantity: 12
+    }], []];
+
+    sinon.stub(connection, 'execute').resolves(execute)
+  });
+
+  after(() => {
+    connection.execute.restore();
+  })
+
+  it('um array', () => {
+    const response = await productsModel.getProductByName(execute.name);
+
+    expect(response).to.be.an('array');
+  });
+
+  it('com as propriedades corretas ', () => {
+    const [response] = await productsModel.getProductByName(execute.name);
+
+    expect(response).to.deep.keys('id', 'name', 'quantity');
+  });
+});
