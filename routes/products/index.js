@@ -9,6 +9,6 @@ router.get('/:id', rescue(productsController.getProductById));
 
 router.post('/', rescue(validateBodyProducts), rescue(productsController.createProduct));
 
-router.put('/:id', rescue(validateBodyProducts), productsController.updateProduct);
+router.put('/:id', rescue(validateBodyProducts), rescue(productsController.updateProduct));
 
 module.exports = router;
