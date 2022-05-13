@@ -204,3 +204,30 @@ describe('Testa se a função updateProduct da camada de Service retorna', () =>
     });
   });
 });
+
+describe('Testa se a função deleteProduct da camada de services', () => {
+  describe('um erro caso', () => {
+    const execute = [{
+      id: 1,
+      name: 'Martelo do Thor',
+      quantity: 10
+    }];
+
+    before(() => {
+      sinon.stub(productsModel, 'getProductById').resolves(execute);
+    });
+
+    after(() => {
+      productsModel.getProductById.restore();
+    });
+
+    it('o produto não exista', async () => {
+      try {
+        await productsService.deleteProduct(1);
+      } catch (error) {
+        expect(error.message).to.be.equal('Product not found');
+        expect(error.status).to.be.equal(404);
+      }
+    })
+  });
+});
