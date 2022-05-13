@@ -106,7 +106,17 @@ describe('Testa se a createProduct da Controller retorna', () => {
 });
 
 describe('Testa se a updateProduct da Controller retorna', () => {
-  res = {};
+  const req = {
+    body: {
+      name: 'Manopla do Thanos',
+      quantity: 15
+    },
+    params: {
+      id: 1
+    }
+  }
+
+  const res = {};
 
   const execute = {
     id: 1,
@@ -129,15 +139,6 @@ describe('Testa se a updateProduct da Controller retorna', () => {
   });
 
   it('a resposta com o status 200', async () => {
-    req = {
-      body: {
-        name: 'Manopla do Thanos',
-        quantity: 15
-      },
-      params: {
-        id: 1
-      }
-    }
     await productsController.updateProduct(req, res);
 
     expect(res.status.calledWith(200)).to.be.equal(true);
@@ -151,17 +152,20 @@ describe('Testa se a updateProduct da Controller retorna', () => {
 });
 
 describe('Testa se a deleteProduct da Controller', () => {
-  req = {
+  const req = {
     params: {
       id: 1
     }
   };
-  res = {};
+  const res = {};
 
   before(() => {
     sinon.stub(productsService, 'deleteProduct').resolves();
 
     res.status = sinon.stub()
+      .returns(res);
+
+    res.end = sinon.stub()
       .returns();
   });
 
