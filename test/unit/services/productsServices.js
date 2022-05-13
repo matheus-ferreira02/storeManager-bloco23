@@ -265,7 +265,7 @@ describe('Testa a função validateProductQuantity', () => {
   const mockProducts = [
     {
       productId: 1,
-      quantity: 3
+      quantity: 20
     },
     {
       productId: 2,

@@ -1,5 +1,6 @@
 const createError = require('../helpers/createObjError');
 const salesModel = require('../models/salesModel');
+const productsService = require('./productsService');
 
 const serializeSales = (data) => ({
   saleId: data.sale_id,
@@ -33,6 +34,7 @@ const getSaleById = async (id) => {
 };
 
 const registerSale = async (saleProducts) => {
+  await productsService.validateProductQuantity(saleProducts);
   const idSale = await salesModel.registerSale();
 
   const salesProductsPending = saleProducts

@@ -96,7 +96,6 @@ describe('Testa se a Service da Sales retorna', () => {
 });
 
 describe('Testa se a função registerSaleProduct da Service retorna', () => {
-  const insertId = 1;  
   const saleProduct = {
     productId: 1,
     quantity: 3,
