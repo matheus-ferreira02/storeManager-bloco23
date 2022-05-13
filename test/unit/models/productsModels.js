@@ -131,3 +131,26 @@ describe('Testa se a updateProduct da Model', () => {
     expect(connection.execute.calledWith(query, [id, name, quantity])).to.be.equal(true);
   });
 });
+
+describe('Testa se a deleteProduct da Model', () => {
+  before(() => {
+    sinon.stub(connection, 'execute').resolves();
+  });
+
+  after(() => {
+    connection.execute.restore();
+  });
+
+  it('deleta um produto', () => {
+    const query = `
+    DELETE FROM
+      StoreManager.products
+    WHERE id = ?`;
+
+    const id = 1;
+
+    await productsModel.deleteProduct(id);
+
+    expect(connection.execute.calledWith(query, [id])).to.be.equal(true);
+  });
+});
