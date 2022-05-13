@@ -260,3 +260,39 @@ describe('Testa se a função deleteProduct da camada de services', () => {
     });
   });
 });
+
+describe('Testa a função validateProductQuantity', () => {
+  const mockProducts = [
+    {
+      productId: 1,
+      quantity: 3
+    },
+    {
+      productId: 2,
+      quantity: 5
+    }
+  ];
+
+  const execute = [{
+    id: 1,
+    name: 'Martelo do Thor',
+    quantity: 10
+  }];
+
+  before(() => {
+    sinon.stub(productsModel, 'getProductById').resolves(execute);
+  });
+
+  after(() => {
+    productsModel.getProductById.restore();
+  });
+
+  it('retorna erro caso a quantidade de produtos esteja abaixo da venda', async () => {
+    try {
+      await productsService.validateProductQuantity(mockProducts);
+    } catch (error) {
+      expect(error.message).to.be.equal('Such amount is not permitted to sell');
+      expect(error.status).to.be.equal(422);
+    }
+  });
+});
