@@ -158,10 +158,12 @@ describe('Testa se a função updateProduct da camada de Service retorna', () =>
   describe('um erro caso', () => {
     before(() => {  
       sinon.stub(productsModel, 'getProductById').resolves([]);
+      sinon.stub(productsModel, 'updateProduct').resolves();
     });
   
     after(() => {
       productsModel.getProductById.restore();
+      productsModel.updateProduct.restore();
     });
 
     it('não exista o produto', async () => {
@@ -183,10 +185,12 @@ describe('Testa se a função updateProduct da camada de Service retorna', () =>
       }];
 
       sinon.stub(productsModel, 'getProductById').resolves(execute);
+      sinon.stub(productsModel, 'updateProduct').resolves();
     });
   
     after(() => {
       productsModel.getProductById.restore();
+      productsModel.updateProduct.restore();
     });
 
     const updatedProduct = {
@@ -214,11 +218,13 @@ describe('Testa se a função deleteProduct da camada de services', () => {
     }];
 
     before(() => {
-      sinon.stub(productsModel, 'getProductById').resolves(execute);
+      sinon.stub(productsModel, 'getProductById').resolves([]);
+      sinon.stub(productsModel, 'deleteProduct').resolves();
     });
 
     after(() => {
       productsModel.getProductById.restore();
+      productsModel.deleteProduct.restore();
     });
 
     it('o produto não exista', async () => {
@@ -228,6 +234,29 @@ describe('Testa se a função deleteProduct da camada de services', () => {
         expect(error.message).to.be.equal('Product not found');
         expect(error.status).to.be.equal(404);
       }
-    })
+    });
+  });
+
+  describe('deleta um produto', () => {
+    const execute = [{
+      id: 1,
+      name: 'Martelo do Thor',
+      quantity: 10
+    }];
+
+    before(() => {
+      sinon.stub(productsModel, 'getProductById').resolves(execute);
+      sinon.stub(productsModel, 'deleteProduct').resolves();
+    });
+
+    after(() => {
+      productsModel.getProductById.restore();
+      productsModel.deleteProduct.restore();
+    });
+
+    it('com sucesso', async () => {
+      await productsService.deleteProduct(1);
+      expect(productsModel.deleteProduct.calledWith(1)).to.be.equal(true);
+    });
   });
 });
