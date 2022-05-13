@@ -2,6 +2,7 @@ const sinon = require('sinon');
 const { expect } = require('chai');
 const productsService = require('../../../services/productsService');
 const productsController = require('../../../controllers/productsController');
+const res = require('express/lib/response');
 
 describe('Testa se a Controller dos Products retorna', () => {
   const req = {};
@@ -146,6 +147,32 @@ describe('Testa se a updateProduct da Controller retorna', () => {
     await productsController.updateProduct(req, res);
 
     expect(res.json.calledWith(execute)).to.be.equal(true);
+  });
+});
+
+describe('Testa se a deleteProduct da Controller', () => {
+  req = {
+    params: {
+      id: 1
+    }
+  };
+  res = {};
+
+  before(() => {
+    sinon.stub(productsService, 'deleteProduct').resolves();
+
+    res.status = sinon.stub()
+      .returns();
+  });
+
+  after(() => {
+    productsService.deleteProduct.restore();
+  })
+
+  it('deleta com sucesso', async () => {
+    await productsController.deleteProduct(req, res);
+
+    expect(res.status.calledWith(204)).to.be.equal(true);
   });
 });
 
