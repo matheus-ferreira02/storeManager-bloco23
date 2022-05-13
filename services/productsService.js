@@ -24,7 +24,9 @@ const validateProductQuantity = async (products) => {
   const isInvalideQuantity = productsResolved
     .some((productDatabase, index) => productDatabase.quantity < products[index].quantity);
 
-  if (isInvalideQuantity) throw createError(422, 'Such amount is not permitted to sell');
+  if (isInvalideQuantity) {
+    throw createError(422, 'Such amount is not permitted to sell')
+  }
 };
 
 const createProduct = async (name, quantity) => {

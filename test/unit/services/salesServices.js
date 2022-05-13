@@ -2,6 +2,7 @@ const sinon = require('sinon');
 const { expect } = require('chai');
 const salesModel = require('../../../models/salesModel');
 const salesService = require('../../../services/salesService');
+const productsService = require('../../../services/productsService');
 
 
 describe('Testa se a Service da Sales retorna', () => {
@@ -115,11 +116,13 @@ describe('Testa se a função registerSaleProduct da Service retorna', () => {
   before(() => {
     sinon.stub(salesModel, 'registerSale').resolves(1);
     sinon.stub(salesModel, 'registerSaleProduct').resolves(saleProduct);
+    sinon.stub(productsService, 'validateProductQuantity').resolves();
   });
 
   after(() => {
     salesModel.registerSale.restore();
     salesModel.registerSaleProduct.restore();
+    productsService.validateProductQuantity.restore();
   });
 
   it('um objeto', async () => {
