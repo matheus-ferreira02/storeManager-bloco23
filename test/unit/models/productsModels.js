@@ -141,7 +141,7 @@ describe('Testa se a deleteProduct da Model', () => {
     connection.execute.restore();
   });
 
-  it('deleta um produto', () => {
+  it('deleta um produto', async () => {
     const query = `
     DELETE FROM
       StoreManager.products
