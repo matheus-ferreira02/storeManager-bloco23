@@ -14,14 +14,21 @@ const getSaleById = async (req, res) => {
 };
 
 const registerSale = async (req, res) => {
-  const salesProducts = req.body;
-  const response = await salesService.registerSale(salesProducts);
+  const response = await salesService.registerSale(req.body);
 
   res.status(201).json(response);
+};
+
+const updateSale = async (req, res) => {
+  const { id } = req.params;
+  const response = await salesService.updateSale(id, req.body);
+
+  return res.status(200).json(response);
 };
 
 module.exports = {
   getAll,
   getSaleById,
   registerSale,
+  updateSale,
 };

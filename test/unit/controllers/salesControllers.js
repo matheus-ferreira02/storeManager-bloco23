@@ -130,6 +130,7 @@ describe('Testa se a função updateSale da Controller responde', () => {
 
   req = {
     body: saleUpdate,
+    params: { id: 1 }
   };
   res = {};
   
@@ -144,7 +145,7 @@ describe('Testa se a função updateSale da Controller responde', () => {
   });
 
   after(() => {
-    salesService.registerSale.restore();
+    salesService.updateSale.restore();
   });
 
   it('com o status 200', async () => {
