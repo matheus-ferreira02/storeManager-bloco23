@@ -52,8 +52,24 @@ const registerSale = async (saleProducts) => {
   return dataSale;
 };
 
+const updateSale = async (saleId, sale) => {
+  await productsService.validateProductQuantity(sale);
+
+  const response = await salesModel.updateSale(saleId, sale[0]);
+
+  const updatedSale = {
+    saleId,
+    itemUpdated: [
+      response,
+    ],
+  };
+
+  return updatedSale;  
+};
+
 module.exports = {
   getAll,
   getSaleById,
   registerSale,
+  updateSale,
 };

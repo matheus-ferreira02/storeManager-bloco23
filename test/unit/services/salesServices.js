@@ -142,13 +142,13 @@ describe('Testa se a função registerSaleProduct da Service retorna', () => {
 });
 
 describe('Testa se a função updateSale da Service retorna', () => {
-  const saleUpdate = {
+  const saleUpdate = [{
     productId: 1,
     quantity: 10
-  }
+  }];
 
   before(() => {
-    sinon.stub(salesModel, 'updateSale').resolves(saleUpdate);
+    sinon.stub(salesModel, 'updateSale').resolves(saleUpdate[0]);
     sinon.stub(productsService, 'validateProductQuantity').resolves();
   });
 
@@ -158,7 +158,7 @@ describe('Testa se a função updateSale da Service retorna', () => {
   });
 
   it('um objeto com a venda atualizada', async () => {
-    const response = await salesService.registerSale(mockSaleProducts);
+    const response = await salesService.updateSale(1, saleUpdate);
 
     expect(response).to.be.an('object');
     expect(response).to.deep.keys('saleId', 'itemUpdated');
