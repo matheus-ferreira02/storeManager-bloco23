@@ -114,3 +114,43 @@ describe('Testa se a função registerSale da Controller responde', () => {
     expect(res.json.calledWith(execute)).to.be.equal(true);
   });
 });
+
+describe('Testa se a função updateSale da Controller responde', () => {
+  const saleUpdate = [{
+    productId: 1,
+    quantity: 10
+  }];
+
+  const execute = {
+    saleId: 1,
+    itemsUpdated: [
+      ...saleUpdate,
+    ],
+  };
+
+  req = {
+    body: saleUpdate,
+  };
+  res = {};
+  
+  before(() => {
+    res.status = sinon.stub()
+      .returns(res);
+
+    res.json = sinon.stub()
+    .returns();
+
+    sinon.stub(salesService, 'updateSale').resolves(execute);
+  });
+
+  after(() => {
+    salesService.registerSale.restore();
+  });
+
+  it('com o status 200', async () => {
+    await salesController.updateSale(req, res);
+
+    expect(res.status.calledWith(200)).to.be.equal(true);
+    expect(res.json.calledWith(execute)).to.be.equal(true);
+  });
+});
