@@ -116,7 +116,7 @@ describe('Testa se a função updateSale da Model retorna', () => {
     quantity: 10
   }
 
-  it('retorna o produto com os dados atualizados', async () => {
+  it('o produto com os dados atualizados', async () => {
     const response = await salesModel.updateSale(1, saleUpdate);
 
     expect(response).to.be.an('object');

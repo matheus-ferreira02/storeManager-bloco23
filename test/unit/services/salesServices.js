@@ -140,3 +140,27 @@ describe('Testa se a função registerSaleProduct da Service retorna', () => {
     });
   });
 });
+
+describe('Testa se a função updateSale da Service retorna', () => {
+  const saleUpdate = {
+    productId: 1,
+    quantity: 10
+  }
+
+  before(() => {
+    sinon.stub(salesModel, 'updateSale').resolves(saleUpdate);
+    sinon.stub(productsService, 'validateProductQuantity').resolves();
+  });
+
+  after(() => {
+    salesModel.updateSale.resolves();
+    productsService.validateProductQuantity.resolves();
+  });
+
+  it('um objeto com a venda atualizada', async () => {
+    const response = await salesService.registerSale(mockSaleProducts);
+
+    expect(response).to.be.an('object');
+    expect(response).to.deep.keys('saleId', 'itemUpdated');
+  });
+});
