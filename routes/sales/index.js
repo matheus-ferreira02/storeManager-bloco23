@@ -9,6 +9,6 @@ router.get('/:id', rescue(salesController.getSaleById));
 
 router.post('/', rescue(validateBodySales), rescue(salesController.registerSale));
 
-router.put('/:id', rescue(validateBodySales));
+router.put('/:id', rescue(validateBodySales), rescue(salesController.updateSale));
 
 module.exports = router;
