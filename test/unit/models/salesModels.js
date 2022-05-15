@@ -117,9 +117,9 @@ describe('Testa se a função updateSale da Model retorna', () => {
   }
 
   it('retorna o produto com os dados atualizados', async () => {
-    const response = await salesModel.updateSales(1, saleUpdate);
+    const response = await salesModel.updateSale(1, saleUpdate);
 
     expect(response).to.be.an('object');
-    expect(response).that.deep.equals(saleProduct);
+    expect(response).that.deep.equals(saleUpdate);
   });
 });
