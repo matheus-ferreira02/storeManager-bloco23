@@ -2,6 +2,7 @@ const sinon = require('sinon');
 const { expect } = require('chai');
 const salesService = require('../../../services/salesService');
 const salesController = require('../../../controllers/salesController');
+const productsModel = require('../../../models/productsModel');
 
 describe('Testa se a Controller de Sales retorna', () => {
   const req = {};

@@ -3,6 +3,7 @@ const { expect } = require('chai');
 const salesModel = require('../../../models/salesModel');
 const salesService = require('../../../services/salesService');
 const productsService = require('../../../services/productsService');
+const productModel = require('../../../models/productsModel');
 
 
 describe('Testa se a Service da Sales retorna', () => {
@@ -147,14 +148,33 @@ describe('Testa se a função updateSale da Service retorna', () => {
     quantity: 10
   }];
 
+  const mockSale = [
+    {
+      "date": "2022-05-20T01:07:11.000Z",
+      "productId": 3,
+      "quantity": 15
+    }
+  ];
+
+  mockProduct = {
+    "id": 3,
+    "name": "Escudo do Capitão América",
+    "quantity": 30
+  }
+
   before(() => {
     sinon.stub(salesModel, 'updateSale').resolves(saleUpdate[0]);
     sinon.stub(productsService, 'validateProductQuantity').resolves();
+    sinon.stub(salesModel, 'getSaleById').resolves(mockSale);
+    sinon.stub(productModel, 'updateQuantityProduct').resolves();
+    sinon.stub(productsService, 'getProductById').resolves(mockProduct);
   });
 
   after(() => {
-    salesModel.updateSale.resolves();
-    productsService.validateProductQuantity.resolves();
+    salesModel.updateSale.restore();
+    productsService.validateProductQuantity.restore();
+    productModel.updateQuantityProduct.restore();
+    productsService.getProductById.restore();
   });
 
   it('um objeto com a venda atualizada', async () => {
