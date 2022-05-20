@@ -1,6 +1,7 @@
 const createError = require('../helpers/createObjError');
 const salesModel = require('../models/salesModel');
 const productsService = require('./productsService');
+const productsModel = require('../models/productsModel');
 
 const serializeSales = (data) => ({
   saleId: data.sale_id,
@@ -14,6 +15,15 @@ const serializeSalesById = (data) => ({
   productId: data.product_id,
   quantity: data.quantity,
 });
+
+const updateQuantityProduct = async (sale, method) => {
+  const product = await productsService.getProductById(sale.productId);
+  const newQuantity = method === 'subtract'
+    ? product.quantity - sale.quantity
+    : product.quantity + sale.quantity;
+  
+  await productsModel.updateQuantityProduct(sale.productId, newQuantity);
+};
 
 const getAll = async () => {
   const response = await salesModel.getAll();
@@ -37,6 +47,11 @@ const registerSale = async (saleProducts) => {
   await productsService.validateProductQuantity(saleProducts);
   const idSale = await salesModel.registerSale();
 
+  const updateQuantityProductsPending = saleProducts
+    .map((sale) => updateQuantityProduct(sale, 'subtract'));
+
+  Promise.all(updateQuantityProductsPending);
+
   const salesProductsPending = saleProducts
     .map((sale) => salesModel.registerSaleProduct(idSale, sale));
 
@@ -54,6 +69,9 @@ const registerSale = async (saleProducts) => {
 
 const updateSale = async (saleId, sale) => {
   await productsService.validateProductQuantity(sale);
+  const [oldSale] = await getSaleById(saleId);
+  await updateQuantityProduct(oldSale, 'add');
+  await updateQuantityProduct(sale[0], 'sub');
 
   const response = await salesModel.updateSale(saleId, sale[0]);
 
@@ -68,7 +86,8 @@ const updateSale = async (saleId, sale) => {
 };
 
 const deleteSale = async (id) => {
-  await getSaleById(id);
+  const [sale] = await getSaleById(id);
+  await updateQuantityProduct(sale, 'add');
 
   await salesModel.deleteSale(id);
 };
